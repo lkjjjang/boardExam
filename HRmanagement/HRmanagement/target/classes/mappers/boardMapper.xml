@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	
+	<insert id="insert">
+		INSERT INTO employees (
+				EMPLOYEE_ID,
+				NAME,
+				EMAIL,
+				PHONE_NUMBER,
+				HIRE_DATE,         
+				LEAVE_DATE,        
+				DEPARTMENT_ID,   
+				POSITION_ID,  
+				ADDRESS,
+				REG_NO, 
+				BANK_ID,    
+				BANK_ACCOUNT)
+		VALUES (
+			employees_seq.NEXTVAL,
+			#{name},
+			#{email},
+			#{phone_number},
+			TO_DATE(#{hire_date}, 'YYYY-MM-DD'),
+			TO_DATE(#{leave_date}, 'YYYY-MM-DD'),
+			#{department_id},
+			#{position_id},
+			#{address},
+			#{reg_no},
+			#{bank_id},
+			#{bank_account}
+			)
+	</insert>
+	
+	<select id="select" resultType="kr.co.vo.Emp_ViewVO">
+		SELECT 
+			EMPLOYEE_ID, 
+			NAME, 
+			REG_NO,
+			DEPARTMENT_NAME, 
+			POSITION_NAME, 
+			HIRE_DATE, 
+			LEAVE_DATE, 
+			EMAIL
+		FROM 
+			employees_VIEW 
+	</select>
+	
+	
+</mapper>
