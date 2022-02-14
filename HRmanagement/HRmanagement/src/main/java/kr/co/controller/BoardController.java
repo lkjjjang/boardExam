@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.service.EmpService;
+import kr.co.viewparse.EmpViewParse;
+import kr.co.vo.Criteria;
 import kr.co.vo.EmpVO;
 import kr.co.vo.Emp_ViewVO;
+import kr.co.vo.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")
@@ -31,37 +34,23 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public void list(Model model) throws Exception {
+	public void list(Model model, Criteria cri) throws Exception {
 		logger.info("list in");
 		
-		List<Emp_ViewVO> list = service.getList();
-		for (Emp_ViewVO emp: list) {
-			regNoParse(emp);
-			dateParse(emp);
-			System.out.println(emp.toString());
-		}
+		List<Emp_ViewVO> list = service.getList(cri);
+		// 화면에 출력할 데이터양식에 맞춰 파싱
+		EmpViewParse evp = new EmpViewParse(list);
+		model.addAttribute("list", evp.getList());
 		
-		model.addAttribute("list", list);
+		
+		// 페이징 관련 부분
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.getCount());
+		model.addAttribute("pageMaker", pageMaker);
 		
 		
 		logger.info("list out");
-	}
-	
-	private void dateParse(Emp_ViewVO emp) {
-		int space = emp.getHire_date().indexOf(" ");
-		emp.setHire_date(emp.getHire_date().substring(0, space));
-		
-		if (emp.getLeave_date().length() > 1) {
-			emp.setLeave_date(emp.getLeave_date().substring(0, space));
-		}
-		
-	}
-	
-	private void regNoParse(Emp_ViewVO emp) {
-		int birthDayLastIdx = 6;
-		String birthDay = emp.getReg_no().substring(0, birthDayLastIdx);
-		String serialNumber = emp.getReg_no().substring(birthDayLastIdx);
-		emp.setReg_no(birthDay + "-" + serialNumber);
 	}
 	
 	@RequestMapping(value = "writeView", method = RequestMethod.GET)

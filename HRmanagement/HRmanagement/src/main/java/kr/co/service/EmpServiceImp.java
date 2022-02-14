@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.dao.EmpDAO;
+import kr.co.vo.Criteria;
 import kr.co.vo.EmpVO;
 import kr.co.vo.Emp_ViewVO;
 
@@ -22,8 +23,14 @@ public class EmpServiceImp implements EmpService {
 	}
 
 	@Override
-	public List<Emp_ViewVO> getList() throws Exception {
-		return dao.getList();
+	public List<Emp_ViewVO> getList(Criteria cri) throws Exception {
+		return dao.getList(cri);
 	}
+
+	@Override
+	public int getCount() throws Exception {
+		return dao.getCount();
+	}
+	
 
 }

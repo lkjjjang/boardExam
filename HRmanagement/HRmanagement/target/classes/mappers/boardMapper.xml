@@ -34,18 +34,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 	</insert>
 	
-	<select id="select" resultType="kr.co.vo.Emp_ViewVO">
+	<select id="listPage" resultType="kr.co.vo.Emp_ViewVO">
 		SELECT 
-			EMPLOYEE_ID, 
-			NAME, 
-			REG_NO,
-			DEPARTMENT_NAME, 
-			POSITION_NAME, 
-			HIRE_DATE, 
-			LEAVE_DATE, 
-			EMAIL
-		FROM 
-			employees_VIEW 
+		    EMPLOYEE_ID, 
+		    NAME, 
+		    REG_NO,
+		    DEPARTMENT_NAME, 
+		    POSITION_NAME, 
+		    HIRE_DATE, 
+		    LEAVE_DATE, 
+		    EMAIL
+		FROM (
+		    SELECT 
+		        EMPLOYEE_ID, 
+		        NAME, 
+		        REG_NO,
+		        DEPARTMENT_NAME, 
+		        POSITION_NAME, 
+		        HIRE_DATE, 
+		        LEAVE_DATE, 
+		        EMAIL,
+		        ROW_NUMBER() OVER(ORDER BY EMPLOYEE_ID DESC) AS RNUM
+		    FROM 
+		        employees_VIEW
+		    ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY EMPLOYEE_ID DESC
+	</select>
+	
+	<select id="listCount" resultType="int">
+		SELECT COUNT(EMPLOYEE_ID) 
+		FROM employees_VIEW
 	</select>
 	
 	

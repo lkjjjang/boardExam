@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,7 @@
           </div>
 
           <input class="form-control form-control-sm mr-3 ml-3" type="text" placeholder="성명" aria-label="Search">
-          <i class="fas fa-search" aria-hidden="true"></i>
+          <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
         </form>
       </div>
     </div>
@@ -109,28 +110,58 @@
       <div class="card-body">
         <nav aria-label="Page navigation">
           <ul class="pagination pagination-circle pg-blue">
-            <li class="page-item disabled">
-              <a class="page-link" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item active"><a class="page-link">1</a></li>
-            <li class="page-item"><a class="page-link">2</a></li>
-            <li class="page-item"><a class="page-link">3</a></li>
-            <li class="page-item"><a class="page-link">4</a></li>
-            <li class="page-item"><a class="page-link">5</a></li>
+          
+          	<!-- 이전 페이지 -->
             <li class="page-item">
-              <a class="page-link" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
+            	<c:if test="${pageMaker.startPage != 1}">
+	            	<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}" aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		                <span class="sr-only">Previous</span>
+	              	</a>
+            	</c:if>
+            	<c:if test="${pageMaker.startPage == 1}">
+	            	<a class="page-link" aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		                <span class="sr-only">Previous</span>
+	              	</a>
+            	</c:if>
+            </li>
+            
+            <!-- 페이지 목록 -->
+            <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<c:if test="${param.page == idx}">
+					<li class="page-item active">
+						<a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a>
+					</li>
+				</c:if>
+				<c:if test="${param.page != idx}">
+					<li class="page-item">
+						<a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a>
+					</li>
+				</c:if>
+			</c:forEach>
+            
+            <!-- 다음 페이지 -->
+            <li class="page-item">
+            	<c:if test="${pageMaker.next}">
+	            	<a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}" aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		                <span class="sr-only">Next</span>
+	            	</a>
+            	</c:if>
+            	<c:if test="${!pageMaker.next}">
+	            	<a class="page-link" aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		                <span class="sr-only">Next</span>
+	            	</a>
+            	</c:if>
             </li>
           </ul>
-
         </nav>
       </div>
     </div>
+    
+    
 
     <div class="card border-0">
       <div class="card-body pl-0 pt-0">

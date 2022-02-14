@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<div class="container">
+<div class="container">
 		<h2 class="pt-3"> 인사관리시스템 </h2>
 		<hr>
 		
@@ -48,7 +48,7 @@
 					<div class="row">
 						<div class="col-sm-6 form-group">
 			                <label>부서명</label>
-			                <select class="form-control" id="departments_id" name="departments_id">
+			                <select class="form-control" id="department_id" name="department_id">
 			                	<option value="10">관리부</option>
 			                	<option value="20">영업부</option>
 			                	<option value="30">구매부</option>

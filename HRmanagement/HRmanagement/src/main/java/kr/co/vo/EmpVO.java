@@ -9,16 +9,30 @@ public class EmpVO {
 	private int department_id;
 	private int position_id;
 	private String address;
-	private int reg_no;
+	private long reg_no;
 	private int bank_id;
 	private String bank_account;
-
-	public int getPosition_id() {
-		return position_id;
+	
+	
+	
+	public EmpVO(String name, String email, String phone_number, String hire_date, String leave_date, int department_id,
+			int position_id, String address, long reg_no, int bank_id, String bank_account) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.phone_number = phone_number;
+		this.hire_date = hire_date;
+		this.leave_date = leave_date;
+		this.department_id = department_id;
+		this.position_id = position_id;
+		this.address = address;
+		this.reg_no = reg_no;
+		this.bank_id = bank_id;
+		this.bank_account = bank_account;
 	}
 
-	public void setPosition_id(int position_id) {
-		this.position_id = position_id;
+	public EmpVO() {
+		System.out.println("empvo inside");
 	}
 
 	public String getName() {
@@ -69,6 +83,14 @@ public class EmpVO {
 		this.department_id = department_id;
 	}
 
+	public int getPosition_id() {
+		return position_id;
+	}
+
+	public void setPosition_id(int position_id) {
+		this.position_id = position_id;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -77,11 +99,11 @@ public class EmpVO {
 		this.address = address;
 	}
 
-	public int getReg_no() {
+	public long getReg_no() {
 		return reg_no;
 	}
 
-	public void setReg_no(int reg_no) {
+	public void setReg_no(long reg_no) {
 		this.reg_no = reg_no;
 	}
 
@@ -103,9 +125,14 @@ public class EmpVO {
 
 	@Override
 	public String toString() {
-		return "EmpVo [name=" + name + ", email=" + email + ", phone_number=" + phone_number + ", hire_date="
-				+ hire_date + ", leave_date=" + leave_date + ", department_id=" + department_id + ", address=" + address
-				+ ", reg_no=" + reg_no + ", bank_id=" + bank_id + ", bank_account=" + bank_account + "]";
+		return "EmpVO [name=" + name + ", email=" + email + ", phone_number=" + phone_number + ", hire_date="
+				+ hire_date + ", leave_date=" + leave_date + ", department_id=" + department_id + ", position_id="
+				+ position_id + ", address=" + address + ", reg_no=" + reg_no + ", bank_id=" + bank_id
+				+ ", bank_account=" + bank_account + "]";
 	}
+	
+	
+	
 
 }
+
