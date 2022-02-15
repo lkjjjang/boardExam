@@ -28,8 +28,8 @@ public class EmpServiceImp implements EmpService {
 	}
 
 	@Override
-	public int getCount() throws Exception {
-		return dao.getCount();
+	public int getCount(Criteria cri) throws Exception {
+		return dao.getCount(cri);
 	}
 	
 

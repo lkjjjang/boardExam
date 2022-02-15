@@ -44,27 +44,32 @@
       <div class="card-body">
 
         <!-- Search form -->
-        <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
+        <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2"
+        		action="/board/list" method="get">
 
           <!-- Material inline 1 -->
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+            <input type="radio" class="form-check-input" value="all" name="searchType"
+            	<c:out value="${param.searchType eq 'all' ? 'checked' : ''}"/> >
             <label class="form-check-label" for="materialInline1">전체</label>
           </div>
 
           <!-- Material inline 2 -->
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+            <input type="radio" class="form-check-input" value="noLeave" name="searchType"
+            	<c:out value="${param.searchType eq 'noLeave' ? 'checked' : ''}"/> >
             <label class="form-check-label" for="materialInline2">근무자</label>
           </div>
 
           <!-- Material inline 3 -->
           <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
+            <input type="radio" class="form-check-input" value="leave" name="searchType"
+            	<c:out value="${param.searchType eq 'leave' ? 'checked' : ''}"/> >
             <label class="form-check-label" for="materialInline3">퇴사자</label>
           </div>
 
-          <input class="form-control form-control-sm mr-3 ml-3" type="text" placeholder="성명" aria-label="Search">
+          <input class="form-control form-control-sm mr-3 ml-3" type="text" 
+          	id="searchKeyword" value="${param.searchKeyword}" name="searchKeyword" placeholder="성명" aria-label="Search">
           <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
         </form>
       </div>
@@ -131,7 +136,7 @@
             <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<c:if test="${param.page == idx}">
 					<li class="page-item active">
-						<a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a>
+						<a class="page-link" href="list${pageMaker.makeQuery(idx)}&searchkeyword=${param.searchKeyword}&=${param.searchType}">${idx}</a>
 					</li>
 				</c:if>
 				<c:if test="${param.page != idx}">

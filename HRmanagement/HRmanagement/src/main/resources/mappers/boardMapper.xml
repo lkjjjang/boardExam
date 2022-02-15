@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="listPage" resultType="kr.co.vo.Emp_ViewVO">
+	<!-- 뷰를 만들었어도 목록을 가져올땐 서브쿼리를 사용해야 함 -->
 		SELECT 
 		    EMPLOYEE_ID, 
 		    NAME, 
@@ -57,6 +58,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        ROW_NUMBER() OVER(ORDER BY EMPLOYEE_ID DESC) AS RNUM
 		    FROM 
 		        employees_VIEW
+		    WHERE 1 = 1
+		    <include refid="search"></include>
 		    ) MP
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY EMPLOYEE_ID DESC
@@ -65,7 +68,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listCount" resultType="int">
 		SELECT COUNT(EMPLOYEE_ID) 
 		FROM employees_VIEW
+		WHERE 1 = 1
+		<include refid="search"></include>
 	</select>
+	
+	<sql id="search">
+		<if test="searchKeyword != null">
+			AND NAME LIKE '%${searchKeyword}%'
+		</if>
+		<if test="searchType == 'all'.toString()">
+				 
+		</if>
+		<if test="searchType == 'noLeave'.toString()">
+			AND LEAVE_DATE IS NULL
+		</if>
+		<if test="searchType == 'leave'.toString()">
+			AND LEAVE_DATE IS NOT NULL
+		</if>
+	</sql>
 	
 	
 </mapper>

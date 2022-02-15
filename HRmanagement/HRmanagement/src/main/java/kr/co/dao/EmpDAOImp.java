@@ -31,8 +31,8 @@ public class EmpDAOImp implements EmpDAO {
 	}
 
 	@Override
-	public int getCount() throws Exception {
-		return sqlsession.selectOne("boardMapper.listCount");
+	public int getCount(Criteria cri) throws Exception {
+		return sqlsession.selectOne("boardMapper.listCount", cri);
 	}
 	
 	

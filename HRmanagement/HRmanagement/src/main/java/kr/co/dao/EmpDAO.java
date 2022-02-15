@@ -12,6 +12,6 @@ public interface EmpDAO {
 	// 게시물 목록
 	List<Emp_ViewVO> getList(Criteria cri) throws Exception;
 	// 게시물 갯수
-	int getCount() throws Exception;
+	int getCount(Criteria cri) throws Exception;
 
 }

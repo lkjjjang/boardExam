@@ -13,6 +13,6 @@ public interface EmpService {
 	// 게시물 출력
 	List<Emp_ViewVO> getList(Criteria cri) throws Exception;
 	// 게시글 갯수
-	int getCount() throws Exception;
+	int getCount(Criteria cri) throws Exception;
 
 }

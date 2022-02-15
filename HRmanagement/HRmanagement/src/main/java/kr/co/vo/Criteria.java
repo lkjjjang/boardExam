@@ -11,6 +11,8 @@ public class Criteria {
 	private int perPageNum;
 	private int rowStart;
 	private int rowEnd;
+	private String searchKeyword;
+	private String searchType;
 	
 	public Criteria() {
 		page = DEFAULT_PAGE_NUM;
@@ -52,11 +54,25 @@ public class Criteria {
 		return this.rowEnd;
 	}
 
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
-				+ "]";
-	}
-	
-	
+				+ ", searchKeyword=" + searchKeyword + ", searchType=" + searchType + "]";
+	}	
 }
